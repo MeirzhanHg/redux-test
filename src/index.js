@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/App';
-import { createStore } from 'redux';
+import { createStore, bindActionCreators } from 'redux';
 
-import {inc, dec, rnd} from './actions';
+import * as actions from './actions';
 import reducer from './reducer';
 
 // *** DISPATCH БЕРЕТ ACTION И ПЕРЕДАЕТ К REDUCER ***
@@ -21,21 +21,24 @@ const update = () => {
 // ПОДПИСКА К ИЗМЕНЕНИЮ 
 subscribe(update)
 
-const bindActionCreater = (creater, dispatch) => (...args) => {
+/* onst bindActionCreater = (creater, dispatch) => (...args) => {
   dispatch(creater(...args))
-}
+} */
 
-const incDispatch = bindActionCreater(inc, dispatch)
-const decDispatch = bindActionCreater(dec, dispatch)
-const rndDispatch = bindActionCreater(rnd, dispatch)
+// USE library bindActionCreators
+const {inc, dec, rnd} = bindActionCreators(actions, dispatch)
 
-document.getElementById('inc').addEventListener('click',incDispatch)
+/* const incDispatch = bindActionCreators(inc, dispatch) 
+const decDispatch = bindActionCreators(dec, dispatch)
+const rndDispatch = bindActionCreators(rnd, dispatch) */
 
-document.getElementById('dec').addEventListener('click', decDispatch)
+document.getElementById('inc').addEventListener('click',inc)
+
+document.getElementById('dec').addEventListener('click', dec)
 
 document.getElementById('rnd').addEventListener('click', () => {
   const value = Math.floor(Math.random() * 10)
-  rndDispatch(value)
+  rnd(value)
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
