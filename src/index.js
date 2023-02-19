@@ -1,72 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/App';
-
 import { createStore } from 'redux';
-// import reducer from './reducer';
-import { Provider } from 'react-redux';
 
-// const store = createStore(reducer, 
-//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-
-// СОСТОЯНИЕ
-const initialState = {
-  value: 0
-}
+import {inc, dec, rnd} from './actions';
+import reducer from './reducer';
 
 // *** DISPATCH БЕРЕТ ACTION И ПЕРЕДАЕТ К REDUCER ***
-
-// REDUCER КОТОРЫЙ МЕНЯЕТЬ СОСТОЯНИЕ ПРИЛОЖЕНИЕ
-const reducer = (state = initialState, action) => {
-  switch(action.type) {
-    case "INC":
-      return {
-        ...state,
-        value: state.value + 1
-      }
-    case "DEC": 
-      return {
-        ...state,
-        value: state.value - 1
-      }
-    case "RND":
-      return {
-        ...state,
-        value: state.value * action.payload
-      }
-    default:
-      return state;
-  }
-}
 
 // ХРАНИЛИЩЕ В КОТОРОМ ХРАНИТЬСЯ REDUCER И СОСТОЯНИЕ
 const store = createStore(reducer)
 
+const {dispatch, subscribe, getState} = store
+
 // ПОЛУЧЕНИЕ ИЗМЕННЕННЫХ ДАННЫХ
 const update = () => {
-  document.getElementById('counter').textContent = store.getState().value
+  document.getElementById('counter').textContent = getState().value
 }
 
 // ПОДПИСКА К ИЗМЕНЕНИЮ 
-store.subscribe(update)
+subscribe(update)
 
-// store.dispatch({type: "INC"})
-// reducer(initialState.value, {type: "INC"})
+const bindActionCreater = (creater, dispatch) => (...args) => {
+  dispatch(creater(...args))
+}
 
-document.getElementById('inc').addEventListener('click', () => {
-  // DISPATCH, ПЕРЕДАЕМ ACTION ДЕЙСТВИЕ К REDUCER
-  store.dispatch({type: "INC"})
-})
+const incDispatch = bindActionCreater(inc, dispatch)
+const decDispatch = bindActionCreater(dec, dispatch)
+const rndDispatch = bindActionCreater(rnd, dispatch)
 
-document.getElementById('dec').addEventListener('click', () => {
-  // DISPATCH, ПЕРЕДАЕМ ACTION ДЕЙСТВИЕ К REDUCER
-  store.dispatch({type: "DEC"})
-})
+document.getElementById('inc').addEventListener('click',incDispatch)
+
+document.getElementById('dec').addEventListener('click', decDispatch)
 
 document.getElementById('rnd').addEventListener('click', () => {
   const value = Math.floor(Math.random() * 10)
-  // DISPATCH, ПЕРЕДАЕМ ACTION ДЕЙСТВИЕ К REDUCER
-  store.dispatch({type: "RND", payload: value})
+  rndDispatch(value)
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
