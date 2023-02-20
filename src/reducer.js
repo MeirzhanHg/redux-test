@@ -1,7 +1,7 @@
 
 // СОСТОЯНИЕ
 const initialState = {
-    value: 0
+    counter: 0
 }
 
 // REDUCER КОТОРЫЙ МЕНЯЕТЬ СОСТОЯНИЕ ПРИЛОЖЕНИЕ
@@ -10,17 +10,17 @@ const reducer = (state = initialState, action) => {
         case "INC":
             return {
                 ...state,
-                value: state.value + 1
+                counter: state.counter + 1
             }
         case "DEC":
             return {
                 ...state,
-                value: state.value - 1
+                counter: state.counter - 1
             }
         case "RND":
             return {
                 ...state,
-                value: state.value * action.payload
+                counter: state.counter * action.payload
             }
         default:
             return state;
