@@ -1,0 +1,12 @@
+.wrapper {
+    display: flex;
+}
+
+.name {
+    width: 100px;
+    margin-right: 15px;
+}
+
+.line {
+    text-decoration: line-through;
+}
