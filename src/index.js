@@ -8,7 +8,9 @@ import reducer from './reducer';
 
 // *** DISPATCH БЕРЕТ ACTION И ПЕРЕДАЕТ К REDUCER ***
 
-const store = createStore(reducer)
+// SETTINGS FOR DEVTOOLS REDUX
+const store = createStore(reducer, 
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
