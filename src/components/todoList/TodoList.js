@@ -7,7 +7,7 @@ import { addPerson, delPerson, changeCheck } from './todoListSlice';
 import './todoList.css'
 
 const TodoList = () => {
-    const list = useSelector(state => state.list)
+    const list = useSelector(state => state.todo.list)
     const dispatch = useDispatch()
 
     const [name, setName] = useState('')
