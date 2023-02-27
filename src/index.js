@@ -1,19 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/App';
+
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
-import reducer from './reducer';
+import reducer from './components/todoList/todoListSlice';
 
 // *** DISPATCH БЕРЕТ ACTION И ПЕРЕДАЕТ К REDUCER ***
 
 // SETTINGS FOR DEVTOOLS REDUX
-const store = createStore(reducer, 
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
 root.render(
   <React.StrictMode>
     <Provider store={store}>

@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
-
 import { useState } from "react";
+
 import { useSelector, useDispatch } from "react-redux";
-import { add, del, change } from '../../actions';
+import { addPerson, delPerson, changeCheck } from './todoListSlice';
 
 import './todoList.css'
 
@@ -34,22 +34,18 @@ const TodoList = () => {
     }
 
     function onCheck(id) {
-        dispatch(change(id))
+        dispatch(changeCheck(id))
     }
 
-    function addPerson() {
+    function newPerson() {
         let newObj = {
             id: uuidv4(),
             name: name,
             checked: check,
         }
 
-        dispatch(add(newObj))
+        dispatch(addPerson(newObj))
         setName('')
-    }
-
-    function delPerson() {
-        dispatch(del())
     }
 
     const content = render(list)
@@ -65,8 +61,8 @@ const TodoList = () => {
 
                 {content}
 
-                <button onClick={addPerson} className="btn btn-primary">Add Person</button>
-                <button onClick={delPerson} className="btn btn-primary">Delete Person</button>
+                <button onClick={newPerson} className="btn btn-primary">Add Person</button>
+                <button onClick={() => dispatch(delPerson())} className="btn btn-primary">Delete Person</button>
             </div>
         </>
     )

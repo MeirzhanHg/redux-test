@@ -4,7 +4,7 @@ import TodoList from "./todoList/TodoList";
 const App = () => {
     return (
         <>
-            <Counter/>  
+            {/* <Counter/>   */}
             <TodoList/>
         </>
     ) 
