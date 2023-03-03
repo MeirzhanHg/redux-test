@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+    counter: 3,
     list: [
         { id: 1, name: 'Meirzhan I.', checked: true },
         { id: 2, name: 'Nursultan E.', checked: false },
@@ -14,9 +15,11 @@ const todoListSlice = createSlice({
     reducers: {
         addPerson: (state, action) => {
             state.list.push(action.payload)
+            state.counter = state.list.length
         },
         delPerson: state => {
             state.list = state.list.filter(item => !item.checked)
+            state.counter = state.list.length
         },
         changeCheck: (state, action) => {
             state.list = state.list.map(item => item.id === action.payload ?

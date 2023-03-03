@@ -7,7 +7,7 @@ import { addPerson, delPerson, changeCheck } from './todoListSlice';
 import './todoList.css'
 
 const TodoList = () => {
-    const list = useSelector(state => state.todo.list)
+    const {list, counter} = useSelector(state => state.todo)
     const dispatch = useDispatch()
 
     const [name, setName] = useState('')
@@ -53,7 +53,7 @@ const TodoList = () => {
     return (
         <>
             <div className="todo">
-                <h4>Todo List</h4>
+                <h4>Todo List <span>{counter} person</span></h4>
 
                 <div className="input">
                     <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
