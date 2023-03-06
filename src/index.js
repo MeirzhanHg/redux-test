@@ -6,9 +6,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 
 import todo from './components/todoList/todoListSlice';
-// *** DISPATCH БЕРЕТ ACTION И ПЕРЕДАЕТ К REDUCER ***
 
-// SETTINGS FOR DEVTOOLS REDUX
 const store = configureStore({
   reducer: {todo},
   devTools: process.env.NODE_ENV !== 'production'

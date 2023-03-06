@@ -3,9 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     counter: 3,
     list: [
-        { id: 1, name: 'Meirzhan I.', checked: true },
-        { id: 2, name: 'Nursultan E.', checked: false },
-        { id: 3, name: 'Eldar K.', checked: false },
+        { id: 1, name: 'Meirzhan I.', checked: true, edit: true },
+        { id: 2, name: 'Nursultan E.', checked: false, edit: false },
+        { id: 3, name: 'Eldar K.', checked: false, edit: false },
     ]
 }
 
@@ -25,6 +25,13 @@ const todoListSlice = createSlice({
             state.list = state.list.map(item => item.id === action.payload ?
                 {...item, checked: !item.checked} : item    
             )
+        },
+        editChange: (state, action) => {
+            state.list = state.list.map(item => item.id === action.payload ? {...item, edit: !item.edit} : item)
+        },
+        setUpdateName: (state, action) => {
+            console.log(action);
+            state.list = state.list.map(item => item.id === action.payload.id ? {...item, name: action.payload.val} : item)
         }
     }
 })
@@ -35,5 +42,7 @@ export default reducer;
 export const {
     addPerson,
     delPerson,
-    changeCheck
+    changeCheck,
+    editChange,
+    setUpdateName
 } = actions;
